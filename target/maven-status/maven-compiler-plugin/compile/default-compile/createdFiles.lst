@@ -1,0 +1,7 @@
+me\francesco\menu\commands\creaMenuCommand.class
+me\francesco\menu\commands\menuCommands.class
+me\francesco\menu\Menu.class
+me\francesco\menu\events\chatEvent.class
+me\francesco\menu\configs\configInventari.class
+me\francesco\menu\Inventari\Inventario.class
+me\francesco\menu\events\inventoryClickEvent.class

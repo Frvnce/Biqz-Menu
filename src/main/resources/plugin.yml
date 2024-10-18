@@ -1,0 +1,19 @@
+name: Menu
+version: '${project.version}'
+main: me.francesco.menu.Menu
+api-version: '1.20'
+depend: [HeadDatabase, Parties]
+softdepend: [Parties, PlaceholderAPI]
+commands:
+  menu:
+    description: "Apre un menu"
+    usage: "/<comando>"
+  creamenu:
+    description: "Crea un menu"
+    usage: "/<comando>"
+    permission: "menu.crea"
+
+permissions:
+  menu:
+    menu.apri: true
+    menu.reload: true

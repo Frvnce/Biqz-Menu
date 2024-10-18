@@ -1,0 +1,10 @@
+############################################
+# Config Menu
+# Messaggi:
+errore:
+  no-perms: "Non hai il permesso per eseguire questo comando!"
+  comandoSbagliato: "Comando errato!"
+
+reload: "Reload eseguito correttamente del file: %nomeConfig%"
+
+successo: "Menu %menu% creato con successo!"

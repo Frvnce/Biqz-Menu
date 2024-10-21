@@ -1,6 +1,7 @@
 ############################################
 # Config Menu
 # Messaggi:
+# Da aggiustare e scrivere tutto da capo.
 errore:
   no-perms: "Non hai il permesso per eseguire questo comando!"
   comandoSbagliato: "Comando errato!"

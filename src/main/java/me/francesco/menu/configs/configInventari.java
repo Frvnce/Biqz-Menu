@@ -65,21 +65,6 @@ public class configInventari {
         get(nomeInventario).createSection(nomeInventario);
         get(nomeInventario).set(nomeInventario+".title","&fTitoloInventario");
         get(nomeInventario).set(nomeInventario+".righe",6);
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.tipo","item");
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.nameItem","&f");
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.lore",list);
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.slot",0);
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.Material","BLACK_STAINED_GLASS_PANE");
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.glow",true);
-        get(nomeInventario).set(nomeInventario+".decorazioni.0.cmd",list);
-
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.tipo","item");
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.nameItem","&f");
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.lore",list);
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.slot",1);
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.Material","BLACK_STAINED_GLASS_PANE");
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.glow",false);
-        get(nomeInventario).set(nomeInventario+".decorazioni.1.cmd",list);
 
         get(nomeInventario).set(nomeInventario+".items.0.tipo","item");
         get(nomeInventario).set(nomeInventario+".items.0.nameItem","&cWarp &lSpawn");
@@ -96,14 +81,6 @@ public class configInventari {
         get(nomeInventario).set(nomeInventario+".items.1.slot",20);
         get(nomeInventario).set(nomeInventario+".items.1.glow",true);
         get(nomeInventario).set(nomeInventario+".items.1.cmd",list);
-
-        get(nomeInventario).set(nomeInventario+".items.2.tipo","head");
-        get(nomeInventario).set(nomeInventario+".items.2.nameItem",".");
-        get(nomeInventario).set(nomeInventario+".items.2.lore",list);
-        get(nomeInventario).set(nomeInventario+".items.2.Material",1879);
-        get(nomeInventario).set(nomeInventario+".items.2.slot",20);
-        get(nomeInventario).set(nomeInventario+".items.2.glow",true);
-        get(nomeInventario).set(nomeInventario+".items.2.cmd",list);
 
         save(nomeInventario);
 

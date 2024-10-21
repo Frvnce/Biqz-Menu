@@ -43,12 +43,14 @@ public class Inventario {
 
     public static Inventory creaInventario(Player player, Inventory inventory,String nomeInventario){
         int i=0;
-        while(configInventari.get(nomeInventario).get(nomeInventario + ".decorazioni." + i)!=null){
+        /*while(configInventari.get(nomeInventario).get(nomeInventario + ".decorazioni." + i)!=null){
             int slot = configInventari.get(nomeInventario).getInt(nomeInventario + ".decorazioni." + i + ".slot");
             inventory.setItem(slot,getItem(player,".decorazioni.",nomeInventario,i));
             i++;
         }
         i=0;
+        */
+
         while(configInventari.get(nomeInventario).get(nomeInventario + ".items." + i)!=null){
             int slot = configInventari.get(nomeInventario).getInt(nomeInventario + ".items." + i + ".slot");
             inventory.setItem(slot,getItem(player,".items.",nomeInventario,i));
@@ -67,7 +69,7 @@ public class Inventario {
                 item = new ItemStack(materiale, 1);
                 break;
             case "head":
-                item = Menu.api.getItemHead(configInventari.get(nomeInventario).getString(nomeInventario + tipo + i + ".Material"));
+                //item = Menu.api.getItemHead(configInventari.get(nomeInventario).getString(nomeInventario + tipo + i + ".Material"));
                 break;
             case "playerHead":
                 item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);

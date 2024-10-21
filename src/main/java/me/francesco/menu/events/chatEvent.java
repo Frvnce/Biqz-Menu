@@ -1,10 +1,8 @@
 package me.francesco.menu.events;
 
-import io.papermc.paper.event.player.AsyncChatEvent;
 import me.francesco.menu.Menu;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +17,7 @@ public class chatEvent implements Listener {
 
     @EventHandler
     public void chat(AsyncPlayerChatEvent e){
-
+    
         if(!Menu.listaPlayer.containsKey(e.getPlayer())){return;}
 
         Player player = e.getPlayer();

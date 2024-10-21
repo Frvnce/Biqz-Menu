@@ -1,9 +1,7 @@
 name: Menu
 version: '1'
 main: me.francesco.menu.Menu
-api-version: '1.20'
-depend: [HeadDatabase, Parties]
-softdepend: [Parties, PlaceholderAPI]
+api-version: '1.21'
 commands:
   menu:
     description: "Apre un menu"

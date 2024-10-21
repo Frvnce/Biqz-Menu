@@ -1,6 +1,5 @@
 package me.francesco.menu.commands;
 
-import me.francesco.menu.Inventari.Inventario;
 import me.francesco.menu.Menu;
 import me.francesco.menu.configs.configInventari;
 import net.kyori.adventure.text.Component;

@@ -1,11 +1,11 @@
 package me.francesco.menu;
 
-import me.arcaniax.hdb.api.HeadDatabaseAPI;
+//import me.arcaniax.hdb.api.HeadDatabaseAPI;
 import me.francesco.menu.commands.creaMenuCommand;
 import me.francesco.menu.commands.menuCommands;
 import me.francesco.menu.configs.configInventari;
 import me.francesco.menu.events.chatEvent;
-import me.francesco.menu.events.inventoryClickEvent;
+import me.francesco.menu.events.ClickEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,10 +14,19 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public final class Menu extends JavaPlugin {
-    public static HeadDatabaseAPI api = null;
+    //public static HeadDatabaseAPI api = null;
     public static HashMap<Player,String> listaPlayer = new HashMap<>();
     @Override
     public void onEnable() {
+        /* TODO
+         * Aggiungere più cose autocompilanti nel gioco
+         * evitare ogni tipo di errore, in caso mandare messaggio in chat
+         * migliorare il menu di esempio con varie cose simpatiche
+         * trovare un modo per mettere le teste perchè altrimenti mi uccido
+         * magari più macchinoso però da fare.
+         * Utopia, ma se si riesce a fare in modo tale da fare nel config.yml una roba che ti permette di decidere se usare l'API di HEADDATABASE o no.
+         * HeadDatabase non dovrebbe aver cambiato le cose, quindi lo tengo così e via.
+         */
 
         try {
             getConfig().options().copyDefaults(true);
@@ -33,12 +42,12 @@ public final class Menu extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        api = new HeadDatabaseAPI();
+        //api = new HeadDatabaseAPI();
 
         //Comandi
         getCommand("menu").setExecutor(new menuCommands(this));
         getCommand("creamenu").setExecutor(new creaMenuCommand(this));
-        getServer().getPluginManager().registerEvents(new inventoryClickEvent(),this);
+        getServer().getPluginManager().registerEvents(new ClickEvent(),this);
         getServer().getPluginManager().registerEvents(new chatEvent(this),this);
 
     }

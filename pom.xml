@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.francesco</groupId>
-    <artifactId>Menu</artifactId>
-    <version>1</version>
+    <artifactId>Biqz-Menu</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Menu</name>

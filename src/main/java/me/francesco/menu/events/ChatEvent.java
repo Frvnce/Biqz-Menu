@@ -9,16 +9,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class chatEvent implements Listener {
+public class ChatEvent implements Listener {
     Menu plugin;
-    public chatEvent(Menu plugin) {
+    public ChatEvent(Menu plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
     public void chat(AsyncPlayerChatEvent e){
     
-        if(!Menu.listaPlayer.containsKey(e.getPlayer())){return;}
+        if(!Menu.playerList.containsKey(e.getPlayer())){return;}
 
         Player player = e.getPlayer();
         String plain = e.getMessage();
@@ -28,14 +28,14 @@ public class chatEvent implements Listener {
             Component component = LegacyComponentSerializer.legacyAmpersand().deserialize("&6★ &cComando annullato!");
             player.sendMessage(component);
 
-            Menu.listaPlayer.remove(player);
+            Menu.playerList.remove(player);
             e.setCancelled(true);
             return;
         }
 
         Bukkit.getScheduler().runTask(plugin, () -> {
-            player.performCommand(Menu.listaPlayer.get(player)+" "+plain);
-            Menu.listaPlayer.remove(player);
+            player.performCommand(Menu.playerList.get(player)+" "+plain);
+            Menu.playerList.remove(player);
             Component component2 = LegacyComponentSerializer.legacyAmpersand().deserialize("&6★ &aOperazione eseguita con successo!");
             player.sendMessage(component2);
             e.setCancelled(true);

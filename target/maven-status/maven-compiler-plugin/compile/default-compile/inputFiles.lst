@@ -1,7 +1,8 @@
-C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\commands\creaMenuCommand.java
+C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\utils\MyUtils.java
 C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\Menu.java
+C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\configs\ConfigMenus.java
 C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\events\ClickEvent.java
-C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\Inventari\Inventario.java
-C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\configs\configInventari.java
-C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\commands\menuCommands.java
-C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\events\chatEvent.java
+C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\tabs\menuTab.java
+C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\inv\MenusInv.java
+C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\commands\MenuCommands.java
+C:\Users\franc\Desktop\Github_Locale\Biqz-Menu\src\main\java\me\francesco\menu\events\ChatEvent.java

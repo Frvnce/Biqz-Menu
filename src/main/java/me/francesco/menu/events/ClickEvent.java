@@ -1,7 +1,9 @@
 package me.francesco.menu.events;
 
 import me.francesco.menu.Menu;
-import me.francesco.menu.configs.configMenus;
+import me.francesco.menu.configs.ConfigMenus;
+import me.francesco.menu.inv.MenusInv;
+import me.francesco.menu.utils.MyUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
@@ -18,14 +20,14 @@ public class ClickEvent implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
-        List<String> listaInventari = configMenus.getAllFiles();
+        List<String> listInventory = ConfigMenus.getAllFiles();
         Component titleMenu = e.getView().title();
-        String legacyTitle = LegacyComponentSerializer.legacyAmpersand().serialize(titleMenu);
+        String legacyTitle = MyUtils.getString(titleMenu);
 
-        for (String nomeMenu : listaInventari) {
-            String nameFromConfig = configMenus.get(nomeMenu).getString(nomeMenu + ".title");
-            Component titleFromConfig = LegacyComponentSerializer.legacyAmpersand().deserialize(nameFromConfig);
-            String legacyConfigTitle = LegacyComponentSerializer.legacyAmpersand().serialize(titleFromConfig);
+        for (String nomeMenu : listInventory) {
+            String nameFromConfig = ConfigMenus.get(nomeMenu).getString(nomeMenu + ".title");
+            Component titleFromConfig = MyUtils.getComponent(nameFromConfig);
+            String legacyConfigTitle = MyUtils.getString(titleFromConfig);
 
             if (legacyTitle.equalsIgnoreCase(legacyConfigTitle)) {
                 processMenuItems(e, nomeMenu, player);
@@ -35,10 +37,10 @@ public class ClickEvent implements Listener {
 
     private void processMenuItems(InventoryClickEvent e, String nomeMenu, Player player) {
         int j = 0;
-        while (configMenus.get(nomeMenu).get(nomeMenu + ".items." + j) != null) {
-            int slot = configMenus.get(nomeMenu).getInt(nomeMenu + ".items." + j + ".slot");
+        while (ConfigMenus.get(nomeMenu).get(nomeMenu + ".items." + j) != null) {
+            int slot = ConfigMenus.get(nomeMenu).getInt(nomeMenu + ".items." + j + ".slot");
             if (slot == e.getSlot()) {
-                List<String> commands = configMenus.get(nomeMenu).getStringList(nomeMenu + ".items." + j + ".cmd");
+                List<String> commands = ConfigMenus.get(nomeMenu).getStringList(nomeMenu + ".items." + j + ".cmd");
                 executeCommands(e, commands, player);
                 e.setCancelled(true);
                 return;
@@ -49,13 +51,15 @@ public class ClickEvent implements Listener {
 
     private void executeCommands(InventoryClickEvent e, List<String> commands, Player player) {
         for (String cmd : commands) {
-            if (cmd.startsWith("chat")) {
+            if (cmd.startsWith("%chat%")) {
                 executeChatCommand(cmd, player);
-            } else if (cmd.startsWith("write")) {
+            } else if (cmd.startsWith("%write%")) {
                 executeWriteCommand(cmd, player);
-            } else if (cmd.startsWith("say")) {
+            } else if (cmd.startsWith("%say%")) {
                 executeSayCommand(cmd, player);
-            } else {
+            }  else if (cmd.startsWith("%menu%")) {
+                executeMenuCommand(cmd, player);
+            }else {
                 if (!cmd.isEmpty()) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("%player%", player.getName()));
                 }
@@ -63,15 +67,23 @@ public class ClickEvent implements Listener {
         }
     }
 
+    private void executeMenuCommand(String cmd, Player player) {
+        cmd = cmd.replace("%menu%", "").trim();
+        System.out.println(cmd);
+        player.openInventory(MenusInv.getInventory(player,cmd));
+    }
+
+    //TODO Da capire se sti tre metodi sono utili a qualcosa o se toglierli.
+
     private void executeChatCommand(String cmd, Player player) {
-        cmd = cmd.replace("chat", "").trim();
-        player.performCommand(cmd);
+        cmd = cmd.replace("%chat%", "").trim();
         player.closeInventory();
+        player.performCommand(cmd);
     }
 
     private void executeWriteCommand(String cmd, Player player) {
-        cmd = cmd.replace("write", "").trim();
-        Menu.listaPlayer.put(player, cmd);
+        cmd = cmd.replace("%write%", "").trim();
+        Menu.playerList.put(player, cmd);
 
         Component message = LegacyComponentSerializer.legacyAmpersand().deserialize(
                 "&6★ &aScrivi il nome del player in chat, se ritieni di aver sbagliato, scrivi &c\"cancella\"&a per annullare il comando!");
@@ -81,7 +93,7 @@ public class ClickEvent implements Listener {
     }
 
     private void executeSayCommand(String cmd, Player player) {
-        cmd = cmd.replace("say", "").trim();
+        cmd = cmd.replace("%say%", "").trim();
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6★ " + cmd));
         player.closeInventory();
     }

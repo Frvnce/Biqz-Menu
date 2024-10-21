@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class configMenus {
+public class ConfigMenus {
     private static File file;
     private static HashMap<String,FileConfiguration> config = new HashMap<>();
     private static String cartella;
 
     public static void createDir(File pluginDir){
-        cartella = pluginDir+"/menus";
+        cartella = pluginDir+"/menu-list";
         File file = new File(cartella);
 
         if(!file.exists()){
@@ -35,7 +35,6 @@ public class configMenus {
         }
 
         config.put(inventoryName, YamlConfiguration.loadConfiguration(file));
-        System.out.println(config.get(inventoryName).toString());
     }
 
     public static FileConfiguration get(String inventoryName){
@@ -58,30 +57,40 @@ public class configMenus {
         List<String> list = new ArrayList<>();
         list.add(" ");
         list.add("This is an example.");
-        list.add(" ");
+        list.add(" %player_name% ");
 
         List<String> listCmd = new ArrayList<>();
         listCmd.add("");
 
         get(inventoryName).createSection(inventoryName);
-        get(inventoryName).set(inventoryName+".title","&f&lTitle Of the &uInventory");
+        get(inventoryName).set(inventoryName+".title","&f&lTitle &a&lOf &6&lthe &7&lInventory");
         get(inventoryName).set(inventoryName+".rows",6);
 
         get(inventoryName).set(inventoryName+".items.0.type","item");
-        get(inventoryName).set(inventoryName+".items.0.nameItem","&cWarp &lSpawn");
+        get(inventoryName).set(inventoryName+".items.0.nameItem","&cExample");
         get(inventoryName).set(inventoryName+".items.0.lore",list);
-        get(inventoryName).set(inventoryName+".items.0.Material","diamond");
+        get(inventoryName).set(inventoryName+".items.0.material","diamond");
+        get(inventoryName).set(inventoryName+".items.0.amount",1);
         get(inventoryName).set(inventoryName+".items.0.slot",20);
         get(inventoryName).set(inventoryName+".items.0.glow",true);
         get(inventoryName).set(inventoryName+".items.0.cmd",listCmd);
 
         get(inventoryName).set(inventoryName+".items.1.type","item");
-        get(inventoryName).set(inventoryName+".items.1.nameItem",".");
+        get(inventoryName).set(inventoryName+".items.1.nameItem","&6Another example");
         get(inventoryName).set(inventoryName+".items.1.lore",list);
-        get(inventoryName).set(inventoryName+".items.1.Material","gold_block");
-        get(inventoryName).set(inventoryName+".items.1.slot",21);
+        get(inventoryName).set(inventoryName+".items.1.material","gold_block");
+        get(inventoryName).set(inventoryName+".items.1.amount",2);
+        get(inventoryName).set(inventoryName+".items.1.slot",24);
         get(inventoryName).set(inventoryName+".items.1.glow",false);
         get(inventoryName).set(inventoryName+".items.1.cmd",listCmd);
+
+        get(inventoryName).set(inventoryName+".items.2.type","playerHead");
+        get(inventoryName).set(inventoryName+".items.2.nameItem","&6&lYou");
+        get(inventoryName).set(inventoryName+".items.2.lore",list);
+        get(inventoryName).set(inventoryName+".items.2.amount",1);
+        get(inventoryName).set(inventoryName+".items.2.slot",22);
+        get(inventoryName).set(inventoryName+".items.2.glow",false);
+        get(inventoryName).set(inventoryName+".items.2.cmd",listCmd);
 
         save(inventoryName);
 

@@ -1,4 +1,4 @@
-name: Menu
+name: Biqz-Menu
 version: '${project.version}'
 main: me.francesco.menu.Menu
 api-version: '1.21'
@@ -13,5 +13,8 @@ commands:
 
 permissions:
   menu:
-    menu.apri: true
+    menu.open: true
     menu.reload: true
+    menu.create: true
+    admin:
+      open: true

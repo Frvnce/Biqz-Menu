@@ -1,11 +1,12 @@
 ############################################
-# Config Menu
-# Messaggi:
-# Da aggiustare e scrivere tutto da capo.
-errore:
-  no-perms: "Non hai il permesso per eseguire questo comando!"
-  comandoSbagliato: "Comando errato!"
+#                BIQZ-MENU                 #
+############################################
 
-reload: "Reload eseguito correttamente del file: %nomeConfig%"
+error:
+  no-perms: "&6✦ &cYou do not have permission to run this command!"
+  Wrong-command: "&6✦ &cWrong command!"
+  Wrong-menu: "&6✦ &cThis menu doesn't exist!"
 
-successo: "Menu %menu% creato con successo!"
+messages:
+  reload: "&6✦ &aFile &6%menu% &areload successfully!"
+  success: "&6✦ &aMenu &6%menu% &acreated successfully!"

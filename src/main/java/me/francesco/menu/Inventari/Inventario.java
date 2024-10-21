@@ -2,7 +2,7 @@ package me.francesco.menu.Inventari;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.francesco.menu.Menu;
-import me.francesco.menu.configs.configInventari;
+import me.francesco.menu.configs.configMenus;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -17,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,10 +28,10 @@ public class Inventario {
     }
 
     public static Inventory getInventario(Player player, String nomeInventario){
-        int numeroRighe = configInventari.get(nomeInventario).getInt(nomeInventario+".righe");
+        int numeroRighe = configMenus.get(nomeInventario).getInt(nomeInventario+".righe");
         int slotTotali = numeroRighe*9;
 
-        String nomeMenu = configInventari.getInventarioName(nomeInventario);
+        String nomeMenu = configMenus.getInventoryName(nomeInventario);
         Component title = LegacyComponentSerializer.legacyAmpersand().deserialize(nomeMenu);
 
         Inventory inventory = Bukkit.createInventory(player,slotTotali, title);
@@ -51,8 +50,8 @@ public class Inventario {
         i=0;
         */
 
-        while(configInventari.get(nomeInventario).get(nomeInventario + ".items." + i)!=null){
-            int slot = configInventari.get(nomeInventario).getInt(nomeInventario + ".items." + i + ".slot");
+        while(configMenus.get(nomeInventario).get(nomeInventario + ".items." + i)!=null){
+            int slot = configMenus.get(nomeInventario).getInt(nomeInventario + ".items." + i + ".slot");
             inventory.setItem(slot,getItem(player,".items.",nomeInventario,i));
             i++;
         }
@@ -61,10 +60,10 @@ public class Inventario {
 
     public static ItemStack getItem(Player player, String tipo, String nomeInventario,int i){
         ItemStack item = null;
-        if(configInventari.get(nomeInventario).get(nomeInventario + tipo + i + ".tipo")==null){return null;}
-        switch (Objects.requireNonNull(configInventari.get(nomeInventario).getString(nomeInventario + tipo + i + ".tipo"))){
+        if(configMenus.get(nomeInventario).get(nomeInventario + tipo + i + ".tipo")==null){return null;}
+        switch (Objects.requireNonNull(configMenus.get(nomeInventario).getString(nomeInventario + tipo + i + ".tipo"))){
             case "item":
-                Material materiale = Material.getMaterial(Objects.requireNonNull(configInventari.get(nomeInventario).getString(nomeInventario + tipo + i + ".Material")));
+                Material materiale = Material.getMaterial(Objects.requireNonNull(configMenus.get(nomeInventario).getString(nomeInventario + tipo + i + ".Material")));
                 if(materiale==null){break;}
                 item = new ItemStack(materiale, 1);
                 break;
@@ -84,17 +83,17 @@ public class Inventario {
         ItemMeta itemMeta = item.getItemMeta();
         //itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(configInventari.get(nomeInventario).getString(nomeInventario + tipo + i + ".nameItem"))));
 
-        String nomeItem = Objects.requireNonNull(configInventari.get(nomeInventario).getString(nomeInventario + tipo + i + ".nameItem"));
+        String nomeItem = Objects.requireNonNull(configMenus.get(nomeInventario).getString(nomeInventario + tipo + i + ".nameItem"));
         Component name = LegacyComponentSerializer.legacyAmpersand().deserialize(nomeItem).decoration(TextDecoration.ITALIC,false);
         itemMeta.displayName(name);
 
         List<String> lore;
-        lore = configInventari.get(nomeInventario).getStringList(nomeInventario + tipo + i + ".lore");
+        lore = configMenus.get(nomeInventario).getStringList(nomeInventario + tipo + i + ".lore");
         for (int j = 0; j < lore.size(); j++) {
             lore.set(j,ChatColor.translateAlternateColorCodes('&',impostaPlaceHolder(player,lore.get(j).replace("%player_name%",player.getName()))));
         }
-        if(configInventari.get(nomeInventario).get(nomeInventario + tipo + i + ".glow")!=null){
-            if(configInventari.get(nomeInventario).getBoolean(nomeInventario + tipo + i + ".glow")){
+        if(configMenus.get(nomeInventario).get(nomeInventario + tipo + i + ".glow")!=null){
+            if(configMenus.get(nomeInventario).getBoolean(nomeInventario + tipo + i + ".glow")){
                 itemMeta.addEnchant(Enchantment.CHANNELING,1,true);
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             }

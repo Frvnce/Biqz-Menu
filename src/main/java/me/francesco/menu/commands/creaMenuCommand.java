@@ -1,7 +1,7 @@
 package me.francesco.menu.commands;
 
 import me.francesco.menu.Menu;
-import me.francesco.menu.configs.configInventari;
+import me.francesco.menu.configs.configMenus;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.command.Command;
@@ -34,10 +34,10 @@ public class creaMenuCommand implements CommandExecutor {
         }
         String nomeInventario = strings[0];
         try {
-            configInventari.setup(plugin,nomeInventario);
-            configInventari.get(nomeInventario).options().copyDefaults(true);
-            configInventari.creaInventarioEsempio(nomeInventario);
-            configInventari.save(nomeInventario);
+            configMenus.setup(plugin,nomeInventario);
+            configMenus.get(nomeInventario).options().copyDefaults(true);
+            configMenus.inventoryExample(nomeInventario);
+            configMenus.save(nomeInventario);
             player.sendMessage(Component.text(plugin.getConfig().getString("successo").replace("%menu%",nomeInventario)).color(TextColor.color(0x3AFF77)));
         } catch (IOException e) {
             throw new RuntimeException(e);

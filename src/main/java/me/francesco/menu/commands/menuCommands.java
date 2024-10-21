@@ -2,7 +2,7 @@ package me.francesco.menu.commands;
 
 import me.francesco.menu.Inventari.Inventario;
 import me.francesco.menu.Menu;
-import me.francesco.menu.configs.configInventari;
+import me.francesco.menu.configs.configMenus;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -50,7 +50,7 @@ public class menuCommands implements CommandExecutor {
                         player.sendMessage(Component.text(plugin.getConfig().getString("errore.no-perms")).color(TextColor.color(0xC64832)));
                         return true;
                     }
-                    configInventari.reload(strings[0]);
+                    configMenus.reload(strings[0]);
                     player.sendMessage(Component.text(plugin.getConfig().getString("reload").replace("%nomeConfig%",strings[0])).color(TextColor.color(0x3AFF77)));
                     return true;
                 }

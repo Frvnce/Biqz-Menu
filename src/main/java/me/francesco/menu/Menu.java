@@ -3,7 +3,7 @@ package me.francesco.menu;
 //import me.arcaniax.hdb.api.HeadDatabaseAPI;
 import me.francesco.menu.commands.creaMenuCommand;
 import me.francesco.menu.commands.menuCommands;
-import me.francesco.menu.configs.configInventari;
+import me.francesco.menu.configs.configMenus;
 import me.francesco.menu.events.chatEvent;
 import me.francesco.menu.events.ClickEvent;
 import org.bukkit.entity.Player;
@@ -32,12 +32,12 @@ public final class Menu extends JavaPlugin {
             getConfig().options().copyDefaults(true);
             saveDefaultConfig();
 
-            getAllInventari();
+            getAllMenu();
 
-            configInventari.setup(this,"menu");
-            configInventari.get("menu").options().copyDefaults(true);
-            configInventari.creaInventarioEsempio("menu");
-            configInventari.save("menu");
+            configMenus.setup(this,"menu");
+            configMenus.get("menu").options().copyDefaults(true);
+            configMenus.inventoryExample("menu");
+            configMenus.save("menu");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -52,17 +52,17 @@ public final class Menu extends JavaPlugin {
 
     }
 
-    public void getAllInventari() throws IOException {
-        File file = new File(getDataFolder()+"/Inventari");
+    public void getAllMenu() throws IOException {
+        File file = new File(getDataFolder()+"/menus");
         if(!file.exists()){
             return;
         }
         for (int i = 0; i < file.listFiles().length; i++) {
             String name = file.listFiles()[i].getName();
             name = name.replace(".yml","");
-            configInventari.setup(this,name);
-            configInventari.get(name).options().copyDefaults(true);
-            configInventari.save(name);
+            configMenus.setup(this,name);
+            configMenus.get(name).options().copyDefaults(true);
+            configMenus.save(name);
         }
     }
 

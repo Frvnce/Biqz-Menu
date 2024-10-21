@@ -1,7 +1,7 @@
 package me.francesco.menu.events;
 
 import me.francesco.menu.Menu;
-import me.francesco.menu.configs.configInventari;
+import me.francesco.menu.configs.configMenus;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
@@ -18,12 +18,12 @@ public class ClickEvent implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
-        List<String> listaInventari = configInventari.getAllFiles();
+        List<String> listaInventari = configMenus.getAllFiles();
         Component titleMenu = e.getView().title();
         String legacyTitle = LegacyComponentSerializer.legacyAmpersand().serialize(titleMenu);
 
         for (String nomeMenu : listaInventari) {
-            String nameFromConfig = configInventari.get(nomeMenu).getString(nomeMenu + ".title");
+            String nameFromConfig = configMenus.get(nomeMenu).getString(nomeMenu + ".title");
             Component titleFromConfig = LegacyComponentSerializer.legacyAmpersand().deserialize(nameFromConfig);
             String legacyConfigTitle = LegacyComponentSerializer.legacyAmpersand().serialize(titleFromConfig);
 
@@ -35,10 +35,10 @@ public class ClickEvent implements Listener {
 
     private void processMenuItems(InventoryClickEvent e, String nomeMenu, Player player) {
         int j = 0;
-        while (configInventari.get(nomeMenu).get(nomeMenu + ".items." + j) != null) {
-            int slot = configInventari.get(nomeMenu).getInt(nomeMenu + ".items." + j + ".slot");
+        while (configMenus.get(nomeMenu).get(nomeMenu + ".items." + j) != null) {
+            int slot = configMenus.get(nomeMenu).getInt(nomeMenu + ".items." + j + ".slot");
             if (slot == e.getSlot()) {
-                List<String> commands = configInventari.get(nomeMenu).getStringList(nomeMenu + ".items." + j + ".cmd");
+                List<String> commands = configMenus.get(nomeMenu).getStringList(nomeMenu + ".items." + j + ".cmd");
                 executeCommands(e, commands, player);
                 e.setCancelled(true);
                 return;

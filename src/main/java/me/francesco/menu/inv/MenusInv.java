@@ -3,7 +3,6 @@ package me.francesco.menu.inv;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.francesco.menu.Menu;
 import me.francesco.menu.configs.ConfigMenus;
 import me.francesco.menu.utils.MyUtils;
 import net.kyori.adventure.text.Component;
@@ -22,15 +21,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class MenusInv {
-    static Menu plugin;
-
     public static boolean inventoryExist(String inventoryName){
-        File file = new File(Bukkit.getPluginManager().getPlugin("Biqz-Menu").getDataFolder()+"/menu-list");
+        File file = new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Biqz-Menu")).getDataFolder()+"/menu-list");
         if(!file.exists()){
             return false;
         }
-        for (int i = 0; i < file.listFiles().length; i++) {
-            String name = file.listFiles()[i].getName();
+        for (int i = 0; i < Objects.requireNonNull(file.listFiles()).length; i++) {
+            String name = Objects.requireNonNull(file.listFiles())[i].getName();
             name = name.replace(".yml","");
             if(name.equals(inventoryName))
                 return true;

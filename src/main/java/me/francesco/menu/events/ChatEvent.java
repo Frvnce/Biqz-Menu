@@ -1,13 +1,15 @@
 package me.francesco.menu.events;
 
 import me.francesco.menu.Menu;
+import me.francesco.menu.utils.MyUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import java.util.Objects;
 
 public class ChatEvent implements Listener {
     Menu plugin;
@@ -21,12 +23,12 @@ public class ChatEvent implements Listener {
         if(!Menu.playerList.containsKey(e.getPlayer())){return;}
 
         Player player = e.getPlayer();
-        String plain = e.getMessage();
+        String message = e.getMessage();
 
-        if(plain.equalsIgnoreCase("cancella")){
+        if(message.equalsIgnoreCase(Objects.requireNonNull(plugin.getConfig().getString("write.keyword")))){
 
-            Component component = LegacyComponentSerializer.legacyAmpersand().deserialize("&6★ &cComando annullato!");
-            player.sendMessage(component);
+            Component messageComp = MyUtils.getComponent(Objects.requireNonNull(plugin.getConfig().getString("write.cancelled")));
+            player.sendMessage(messageComp);
 
             Menu.playerList.remove(player);
             e.setCancelled(true);
@@ -34,10 +36,10 @@ public class ChatEvent implements Listener {
         }
 
         Bukkit.getScheduler().runTask(plugin, () -> {
-            player.performCommand(Menu.playerList.get(player)+" "+plain);
+            player.performCommand(Menu.playerList.get(player)+" "+message);
             Menu.playerList.remove(player);
-            Component component2 = LegacyComponentSerializer.legacyAmpersand().deserialize("&6★ &aOperazione eseguita con successo!");
-            player.sendMessage(component2);
+            Component messageComp2 = MyUtils.getComponent(Objects.requireNonNull(plugin.getConfig().getString("write.success")));
+            player.sendMessage(messageComp2);
             e.setCancelled(true);
         });
         e.setCancelled(true);

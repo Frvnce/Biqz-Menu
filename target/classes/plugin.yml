@@ -4,12 +4,8 @@ main: me.francesco.menu.Menu
 api-version: '1.21'
 commands:
   menu:
-    description: "Apre un menu"
+    description: "Open the menu"
     usage: "/<comando>"
-  creamenu:
-    description: "Crea un menu"
-    usage: "/<comando>"
-    permission: "menu.crea"
 
 permissions:
   menu:

@@ -31,6 +31,10 @@ public class MenuCommands implements CommandExecutor {
 
         switch(strings.length){
             case 0:
+                if(!player.hasPermission("menu.open")){
+                    player.sendMessage(MyUtils.getComponent(plugin.getConfig().getString("error.no-perms")));
+                    break;
+                }
                 openMenu(player,MenusInv.getInventory(player,"menu"));
                 break;
             case 1:

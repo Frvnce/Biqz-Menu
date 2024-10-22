@@ -1,12 +1,13 @@
 package me.francesco.menu.inv;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.francesco.menu.Menu;
 import me.francesco.menu.configs.ConfigMenus;
 import me.francesco.menu.utils.MyUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -15,11 +16,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class MenusInv {
     static Menu plugin;
@@ -43,7 +43,7 @@ public class MenusInv {
         int totalSlot = nRow*9;
 
         String nomeMenu = ConfigMenus.getInventoryName(inventoryName);
-        Component title = MyUtils.getComponent(nomeMenu);
+        Component title = MyUtils.getComponent(MenusInv.setPlaceHolder(player,nomeMenu));
 
         Inventory inventory = Bukkit.createInventory(player,totalSlot, title);
         inventory = createMenu(player,inventory,inventoryName);
@@ -53,40 +53,48 @@ public class MenusInv {
 
     public static Inventory createMenu(Player player, Inventory inventory, String inventoryName){
         int i=0;
+        int totalSlot = ConfigMenus.get(inventoryName).getInt(inventoryName+".rows")*9;
+        if(ConfigMenus.get(inventoryName).getBoolean(inventoryName+".customFeature.fillMenu.active")){
+            inventory = fillInventory(player, ".customFeature.fillMenu", inventoryName, inventory);
+        }
+        if(ConfigMenus.get(inventoryName).getBoolean(inventoryName+".customFeature.edges.active")){
+            inventory = createEdge(player, ".customFeature.edges", inventoryName, inventory);
+        }
         while(ConfigMenus.get(inventoryName).get(inventoryName + ".items." + i)!=null){
             int slot = ConfigMenus.get(inventoryName).getInt(inventoryName + ".items." + i + ".slot");
-            inventory.setItem(slot,getItem(player,".items.",inventoryName,i));
+            if(slot<totalSlot) inventory.setItem(slot,getItem(player,".items.",inventoryName,i));
             i++;
         }
         return inventory;
     }
 
-    public static ItemStack getItem(Player player, String items, String inventoryName,int i){
+    public static ItemStack getItem(Player player, String items, String inventoryName,int i) {
         ItemStack item = null;
         if(ConfigMenus.get(inventoryName).get(inventoryName + items + i + ".type")==null){return null;}
-
         switch (Objects.requireNonNull(ConfigMenus.get(inventoryName).getString(inventoryName + items + i + ".type"))){
             case "item":
-                Material material = Material.getMaterial(Objects.requireNonNull(ConfigMenus.get(inventoryName).getString(inventoryName + items + i + ".material").toUpperCase()));
+                Material material = Material.getMaterial(getMaterialFromConfig(inventoryName,items,i).toUpperCase());
                 if(material==null){break;}
-                int amount = ConfigMenus.get(inventoryName).getInt(inventoryName + items + i + ".amount");
-                if(amount==0){amount=1;}
-                item = new ItemStack(material, amount);
 
+                item = new ItemStack(material, getAmountFromConfig(inventoryName,items,i));
                 break;
             case "head":
-                //item = Menu.api.getItemHead(configInventari.get(inventoryName).getString(inventoryName + type + i + ".Material"));
-                //TODO trovare un modo
+                item = new ItemStack(Material.PLAYER_HEAD, getAmountFromConfig(inventoryName,items,i), (short) 3);
+                SkullMeta customHeadPlayer = (SkullMeta) item.getItemMeta();
+
+                PlayerProfile playerProfile = Bukkit.getOfflinePlayer(UUID.randomUUID()).getPlayerProfile();
+                ProfileProperty profileProperty = new ProfileProperty("textures", getMaterialFromConfig(inventoryName,items,i));
+                playerProfile.setProperty(profileProperty);
+
+                customHeadPlayer.setPlayerProfile(playerProfile);
+                item.setItemMeta(customHeadPlayer);
                 break;
             case "playerHead":
-                item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+                item = new ItemStack(Material.PLAYER_HEAD, getAmountFromConfig(inventoryName,items,i), (short) 3);
                 SkullMeta myAwesomeSkullMeta = (SkullMeta) item.getItemMeta();
-                myAwesomeSkullMeta.setOwner(player.getName());
-                item.setItemMeta(myAwesomeSkullMeta);
+                myAwesomeSkullMeta.setOwningPlayer(player);
 
-                break;
-            default:
-                //TODO Errore
+                item.setItemMeta(myAwesomeSkullMeta);
                 break;
         }
 
@@ -94,13 +102,8 @@ public class MenusInv {
         ItemMeta itemMeta = item.getItemMeta();
 
         // Set  the name of the item
-        Component name = MyUtils.getComponent(ConfigMenus.get(inventoryName).getString(inventoryName + items + i + ".nameItem"));
+        Component name = MyUtils.getComponent(setPlaceHolder(player,ConfigMenus.get(inventoryName).getString(inventoryName + items + i + ".nameItem")));
         itemMeta.displayName(name);
-
-        // Get the Lore of the item and check if there is a placeholder like a name.
-        List<String> lore;
-        lore = ConfigMenus.get(inventoryName).getStringList(inventoryName + items + i + ".lore");
-        lore.replaceAll(s -> ChatColor.translateAlternateColorCodes('&', setPlaceHolder(player, s.replace("%player_name%", player.getName()))));
 
         // check if the item is glowing or not.
         if(ConfigMenus.get(inventoryName).get(inventoryName + items + i + ".glow")!=null){
@@ -111,58 +114,113 @@ public class MenusInv {
         }
 
         // set the lore and set the itemMeta.
-        itemMeta.setLore(lore);
-        itemMeta.lore();
+        itemMeta.lore(MyUtils.getListComponent(player, ConfigMenus.get(inventoryName).getStringList(inventoryName + items + i + ".lore")));
         item.setItemMeta(itemMeta);
 
         return item;
+    }
+
+    public static String getMaterialFromConfig(String inventoryName, String items, int i){
+        return Objects.requireNonNull(ConfigMenus.get(inventoryName).getString(inventoryName + items + i + ".material"));
+    }
+
+    public static int getAmountFromConfig(String inventoryName, String items, int i){
+        int amount = ConfigMenus.get(inventoryName).getInt(inventoryName + items + i + ".amount");
+        if(amount==0){amount=1;}
+        return amount;
     }
 
     public static String setPlaceHolder(Player player, String message){
         return PlaceholderAPI.setPlaceholders(player, message);
     }
 
+    //keyword == .customFeature.fillmenu or .customFeature.edges
+    public static ItemStack getItemEdgeFill(Player player, String keyword, String inventoryName) {
+        ItemStack item = null;
+        if(ConfigMenus.get(inventoryName).get(inventoryName + keyword + ".type")==null){return null;}
+        switch (Objects.requireNonNull(ConfigMenus.get(inventoryName).getString(inventoryName + keyword + ".type"))){
+            case "item":
+                Material material = Material.getMaterial(Objects.requireNonNull(ConfigMenus.get(inventoryName).getString(inventoryName + keyword + ".material")).toUpperCase());
+                if(material==null){break;}
+
+                item = new ItemStack(material, 1);
+                break;
+            case "head":
+                item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+                SkullMeta customHeadPlayer = (SkullMeta) item.getItemMeta();
+
+                PlayerProfile playerProfile = Bukkit.getOfflinePlayer(UUID.randomUUID()).getPlayerProfile();
+                ProfileProperty profileProperty = new ProfileProperty("textures", Objects.requireNonNull(ConfigMenus.get(inventoryName).getString(inventoryName + keyword + ".material")).toUpperCase());
+                playerProfile.setProperty(profileProperty);
+
+                customHeadPlayer.setPlayerProfile(playerProfile);
+                item.setItemMeta(customHeadPlayer);
+                break;
+            case "playerHead":
+                item = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+                SkullMeta myAwesomeSkullMeta = (SkullMeta) item.getItemMeta();
+                myAwesomeSkullMeta.setOwningPlayer(player);
+
+                item.setItemMeta(myAwesomeSkullMeta);
+                break;
+        }
+
+        if(item==null){return null;}
+        ItemMeta itemMeta = item.getItemMeta();
+
+        // Set  the name of the item
+        Component name = MyUtils.getComponent(setPlaceHolder(player,ConfigMenus.get(inventoryName).getString(inventoryName + keyword + ".nameItem")));
+        itemMeta.displayName(name);
+
+        // check if the item is glowing or not.
+        if(ConfigMenus.get(inventoryName).get(inventoryName + keyword + ".glow")!=null){
+            if(ConfigMenus.get(inventoryName).getBoolean(inventoryName + keyword + ".glow")){
+                itemMeta.addEnchant(Enchantment.CHANNELING,1,true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
+        }
+
+        // set the lore and set the itemMeta.
+        itemMeta.lore(MyUtils.getListComponent(player, ConfigMenus.get(inventoryName).getStringList(inventoryName + keyword + ".lore")));
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+
     //TODO metterlo nel config, vediamo.
-    public static org.bukkit.inventory.Inventory createEdge(org.bukkit.inventory.Inventory inventory){
-        //Item ede
-        ItemStack item_Bordo = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
-        ItemMeta itemMeta_Bordo = item_Bordo.getItemMeta();
-        itemMeta_Bordo.setDisplayName(" ");
-        item_Bordo.setItemMeta(itemMeta_Bordo);
+    public static Inventory createEdge(Player player,String keyword,String inventoryName, Inventory inventory){
+        ItemStack edgeItem = getItemEdgeFill(player,keyword,inventoryName);
+        int nRow = ConfigMenus.get(inventoryName).getInt(inventoryName+".rows");
+        int totalSlot = nRow*9;
 
         for(int i=0;i<9;i++){
-            inventory.setItem(i, item_Bordo);
+            inventory.setItem(i, edgeItem);
             if(i==0){
-                for (int j=0;j<=45;j=j+9){
-                    inventory.setItem(j, item_Bordo);
-                    if(j==45){
-                        for (int y=45;y<=53;y++){
-                            inventory.setItem(y, item_Bordo);
+                for (int j=0;j<=(totalSlot-1);j=j+9){
+                    inventory.setItem(j, edgeItem);
+                    if(j==(totalSlot-9)){
+                        for (int y=(totalSlot-9);y<=(totalSlot-1);y++){
+                            inventory.setItem(y, edgeItem);
                         }
                     }
                 }
             }
             if(i==8){
-                for (int j=8;j<=53;j=j+9){
-                    inventory.setItem(j, item_Bordo);
+                for (int j=8;j<=(totalSlot-1);j=j+9){
+                    inventory.setItem(j, edgeItem);
                 }
             }
         }
-
         return inventory;
     }
 
-    public static org.bukkit.inventory.Inventory fullInventory(org.bukkit.inventory.Inventory inventory){
-        //Item bordo
-        ItemStack itemEdge = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
-        ItemMeta itemMetaEdge = itemEdge.getItemMeta();
-        itemMetaEdge.setDisplayName(" ");
-        itemEdge.setItemMeta(itemMetaEdge);
+    public static Inventory fillInventory(Player player, String keyword, String inventoryName, Inventory inventory){
+        ItemStack fillItem = getItemEdgeFill(player,keyword,inventoryName);
 
         for(int i=0;i<inventory.getSize();i++){
-            inventory.setItem(i, itemEdge);
+            inventory.setItem(i, fillItem);
         }
-
         return inventory;
     }
 

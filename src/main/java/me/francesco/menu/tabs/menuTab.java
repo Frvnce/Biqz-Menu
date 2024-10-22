@@ -19,13 +19,24 @@ public class menuTab implements TabCompleter {
 
         switch (strings.length){
             case 1:
-                list.add("open");
-                list.add("reload");
-                list.add("create");
-                list.addAll(ConfigMenus.getAllFiles());
+                if(player.hasPermission("menu.admin.open")){
+                    list.add("open");
+                }
+                if(player.hasPermission("menu.reload")){
+                    list.add("reload");
+                }
+                if(player.hasPermission("menu.create")){
+                    list.add("create");
+                }
+                for(String i : ConfigMenus.getAllFiles()){
+                    if(player.hasPermission("menu."+i)){
+                        list.add(i);
+                    }
+                }
                 break;
             case 2:
-                if(strings[0].equalsIgnoreCase("open") || strings[0].equalsIgnoreCase("reload")){
+                if((strings[0].equalsIgnoreCase("open") || strings[0].equalsIgnoreCase("reload")) &&
+                        (player.hasPermission("menu.admin.open") || player.hasPermission("menu.admin.reload"))){
                     list.addAll(ConfigMenus.getAllFiles());
                 }
                 break;

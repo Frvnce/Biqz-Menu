@@ -53,7 +53,7 @@ public final class Menu extends JavaPlugin {
         getCommand("menu").setExecutor(new MenuCommands(this));
 
         //events
-        getServer().getPluginManager().registerEvents(new ClickEvent(),this);
+        getServer().getPluginManager().registerEvents(new ClickEvent(this),this);
         getServer().getPluginManager().registerEvents(new ChatEvent(this),this);
 
         //tab completer

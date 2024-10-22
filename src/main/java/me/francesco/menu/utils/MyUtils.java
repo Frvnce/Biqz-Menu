@@ -1,8 +1,10 @@
 package me.francesco.menu.utils;
 
+import me.francesco.menu.inv.MenusInv;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,10 @@ public class MyUtils {
         return LegacyComponentSerializer.legacyAmpersand().serialize(textComponent);
     }
 
-    public static List<Component> getListComponent(List<String> lista){
+    public static List<Component> getListComponent(Player player, List<String> lista){
         List<Component> listComp = new ArrayList<>();
         for (String i:lista) {
-            listComp.add(getComponent(i).decoration(TextDecoration.ITALIC,false));
+            listComp.add(getComponent(MenusInv.setPlaceHolder(player,i)).decoration(TextDecoration.ITALIC,false));
         }
         return listComp;
     }

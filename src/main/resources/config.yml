@@ -2,11 +2,27 @@
 #                BIQZ-MENU                 #
 ############################################
 
+# Error messages
 error:
+  # Error message, cause: No permissions
   no-perms: "&6✦ &cYou do not have permission to run this command!"
+  # Error message, cause: Wrong command
   Wrong-command: "&6✦ &cWrong command!"
+  # Error message, cause: menu doesn't exist
   Wrong-menu: "&6✦ &cThis menu doesn't exist!"
+
 
 messages:
   reload: "&6✦ &aFile &6%menu% &areload successfully!"
   success: "&6✦ &aMenu &6%menu% &acreated successfully!"
+
+# Placeholder %write%
+write:
+  # Message sent when clicking on an item in the menu with "%write%"
+  message:  "&6✦ &aWrite the name of the player in chat, if you think you've made a mistake, write \"&c%keyword%&a\" &ato cancel the command!"
+  # Keyword used to delete the event
+  keyword: "delete" # Change this to change the keyword
+  # When you write the keyword in chat.
+  cancelled: "&6✦ &cCommand cancelled"
+  # When you write something after the message.
+  success: "&6✦ &aOperation performed successfully!"

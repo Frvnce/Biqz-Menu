@@ -1,7 +1,9 @@
 name: Biqz-Menu
-version: '1.0'
+version: '1.0.122'
 main: me.francesco.menu.Menu
 api-version: '1.21'
+depend:
+  - PlaceholderAPI
 commands:
   menu:
     description: "Open the menu"

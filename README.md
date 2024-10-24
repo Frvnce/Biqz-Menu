@@ -3,7 +3,6 @@ You can download Biqz-Menu from the following link: [Download Biqz-Menu](https:/
 
 # Biqz-Menu
 Version: 1.0.124  
-Discord: [Support Discord](https://discord.gg/HcVYx7b6yE)
 
 ## Description
 **Biqz-Menu** is a plugin that allows you to create menus in a super simple and fast way, using an easy-to-configure YAML file. The plugin is fully customizable thanks to the configuration file, which contains every type of message printed in chat.

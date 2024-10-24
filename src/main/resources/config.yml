@@ -35,3 +35,5 @@ write:
   cancelled: "&6✦ &cCommand cancelled"
   # When you write something after the message.
   success: "&6✦ &aOperation performed successfully!"
+  # When you write the name of the player but he's offline.
+  offline: "&6✦ &cThis player is not online!"

@@ -36,6 +36,11 @@ public class ChatEvent implements Listener {
         }
 
         Bukkit.getScheduler().runTask(plugin, () -> {
+            if(!Bukkit.getOfflinePlayer(message).isOnline()){
+                player.sendMessage(MyUtils.getComponent(Objects.requireNonNull(plugin.getConfig().getString("write.offline"))));
+                e.setCancelled(true);
+                return;
+            }
             player.performCommand(Menu.playerList.get(player)+" "+message);
             Menu.playerList.remove(player);
             Component messageComp2 = MyUtils.getComponent(Objects.requireNonNull(plugin.getConfig().getString("write.success")));

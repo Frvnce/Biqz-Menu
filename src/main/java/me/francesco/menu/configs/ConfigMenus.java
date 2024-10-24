@@ -76,6 +76,18 @@ public class ConfigMenus {
         List<String> listCmd = new ArrayList<>();
         listCmd.add("");
 
+        List<String> listCmdMenu = new ArrayList<>();
+        listCmdMenu.add("%menu% menu");
+
+        List<String> listCmdChat = new ArrayList<>();
+        listCmdChat.add("%chat% spawn");
+
+        List<String> listCmdWrite = new ArrayList<>();
+        listCmdWrite.add("%write% menu open menu ");
+
+        List<String> listCmdSay = new ArrayList<>();
+        listCmdSay.add("%say% &aHello! &6Thanks for using my plugin! &c<3");
+
         List<String> listCmdDiscord = new ArrayList<>();
         listCmdDiscord.add("%say%&6✦ &aJoin here:&6 https://discord.gg/HcVYx7b6yE");
 
@@ -102,28 +114,28 @@ public class ConfigMenus {
         get(inventoryName).set(inventoryName+".customFeature.edges.cmd",listCmd);
 
         get(inventoryName).set(inventoryName+".items.0.type","item");
-        get(inventoryName).set(inventoryName+".items.0.nameItem","&aExample of item &#363636&l/ &aGlow item");
+        get(inventoryName).set(inventoryName+".items.0.nameItem","&a&lExample of item &#363636&l/ &aGlow item");
         get(inventoryName).set(inventoryName+".items.0.lore",list);
-        get(inventoryName).set(inventoryName+".items.0.material","diamond");
+        get(inventoryName).set(inventoryName+".items.0.material","brush");
         get(inventoryName).set(inventoryName+".items.0.amount",1);
-        get(inventoryName).set(inventoryName+".items.0.slot",10);
+        get(inventoryName).set(inventoryName+".items.0.slot",20);
         get(inventoryName).set(inventoryName+".items.0.glow",true);
         get(inventoryName).set(inventoryName+".items.0.cmd",listCmd);
 
         get(inventoryName).set(inventoryName+".items.1.type","item");
-        get(inventoryName).set(inventoryName+".items.1.nameItem","&aAnother example &#363636&l/ &aCustom Amount");
+        get(inventoryName).set(inventoryName+".items.1.nameItem","&a&lAnother example &#363636&l/ &aCustom Amount");
         get(inventoryName).set(inventoryName+".items.1.lore",list);
         get(inventoryName).set(inventoryName+".items.1.material","iron_ingot");
         get(inventoryName).set(inventoryName+".items.1.amount",16);
-        get(inventoryName).set(inventoryName+".items.1.slot",16);
+        get(inventoryName).set(inventoryName+".items.1.slot",24);
         get(inventoryName).set(inventoryName+".items.1.glow",false);
         get(inventoryName).set(inventoryName+".items.1.cmd",listCmd);
 
         get(inventoryName).set(inventoryName+".items.2.type","playerHead");
-        get(inventoryName).set(inventoryName+".items.2.nameItem","&a%player_name% &#363636&l/ &aPlaceHolders!");
+        get(inventoryName).set(inventoryName+".items.2.nameItem","&a&l%player_name% &#363636&l/ &aPlaceHolders!");
         get(inventoryName).set(inventoryName+".items.2.lore",list);
         get(inventoryName).set(inventoryName+".items.2.amount",1);
-        get(inventoryName).set(inventoryName+".items.2.slot",22);
+        get(inventoryName).set(inventoryName+".items.2.slot",31);
         get(inventoryName).set(inventoryName+".items.2.glow",false);
         get(inventoryName).set(inventoryName+".items.2.cmd",listCmd);
 
@@ -132,7 +144,7 @@ public class ConfigMenus {
         get(inventoryName).set(inventoryName+".items.3.lore",list);
         get(inventoryName).set(inventoryName+".items.3.material","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWVlYjVhZGU0MjY4MWQxZWY3NjJiNWJiNDhlZTgyNDkwNzJhMzgzZWUzZmJjNjJhNTAxZTdmOTRhYWE3MmVhMSJ9fX0=");
         get(inventoryName).set(inventoryName+".items.3.amount",1);
-        get(inventoryName).set(inventoryName+".items.3.slot",13);
+        get(inventoryName).set(inventoryName+".items.3.slot",22);
         get(inventoryName).set(inventoryName+".items.3.glow",false);
         get(inventoryName).set(inventoryName+".items.3.cmd",listCmd);
 
@@ -141,7 +153,7 @@ public class ConfigMenus {
         get(inventoryName).set(inventoryName+".items.4.lore",list);
         get(inventoryName).set(inventoryName+".items.4.material","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDM4Y2YzZjhlNTRhZmMzYjNmOTFkMjBhNDlmMzI0ZGNhMTQ4NjAwN2ZlNTQ1Mzk5MDU1NTI0YzE3OTQxZjRkYyJ9fX0=");
         get(inventoryName).set(inventoryName+".items.4.amount",1);
-        get(inventoryName).set(inventoryName+".items.4.slot",12);
+        get(inventoryName).set(inventoryName+".items.4.slot",23);
         get(inventoryName).set(inventoryName+".items.4.glow",false);
         get(inventoryName).set(inventoryName+".items.4.cmd",listCmdWebsite);
 
@@ -150,9 +162,45 @@ public class ConfigMenus {
         get(inventoryName).set(inventoryName+".items.5.lore",list);
         get(inventoryName).set(inventoryName+".items.5.material","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2I5NDg0M2QzNDBhYmFkYmQ2NDAxZWY0ZWM3NGRjZWM0YjY2OTY2MTA2NWJkMWEwMWY5YTU5MDVhODkxOWM3MiJ9fX0=");
         get(inventoryName).set(inventoryName+".items.5.amount",1);
-        get(inventoryName).set(inventoryName+".items.5.slot",14);
+        get(inventoryName).set(inventoryName+".items.5.slot",21);
         get(inventoryName).set(inventoryName+".items.5.glow",false);
         get(inventoryName).set(inventoryName+".items.5.cmd",listCmdDiscord);
+
+        get(inventoryName).set(inventoryName+".items.6.type","head");
+        get(inventoryName).set(inventoryName+".items.6.nameItem","&a&lEXAMPLE &aof &6%menu% &a!");
+        get(inventoryName).set(inventoryName+".items.6.lore",list);
+        get(inventoryName).set(inventoryName+".items.6.material","eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDkwMTczZGI3OTIyYjI4NDRiYzI1YjNmNjkwZDhhZTYxYzEyYmZlMTM4NzkwODAzMDc1YjJmNzEyZmEzOTg2YiJ9fX0=");
+        get(inventoryName).set(inventoryName+".items.6.amount",1);
+        get(inventoryName).set(inventoryName+".items.6.slot",29);
+        get(inventoryName).set(inventoryName+".items.6.glow",false);
+        get(inventoryName).set(inventoryName+".items.6.cmd",listCmdMenu);
+
+        get(inventoryName).set(inventoryName+".items.7.type","item");
+        get(inventoryName).set(inventoryName+".items.7.nameItem","&a&lEXAMPLE &aof &6%chat% &a!");
+        get(inventoryName).set(inventoryName+".items.7.lore",list);
+        get(inventoryName).set(inventoryName+".items.7.material","diamond");
+        get(inventoryName).set(inventoryName+".items.7.amount",1);
+        get(inventoryName).set(inventoryName+".items.7.slot",30);
+        get(inventoryName).set(inventoryName+".items.7.glow",true);
+        get(inventoryName).set(inventoryName+".items.7.cmd",listCmdChat);
+
+        get(inventoryName).set(inventoryName+".items.8.type","item");
+        get(inventoryName).set(inventoryName+".items.8.nameItem","&a&lEXAMPLE &aof &6%write% &a!");
+        get(inventoryName).set(inventoryName+".items.8.lore",list);
+        get(inventoryName).set(inventoryName+".items.8.material","feather");
+        get(inventoryName).set(inventoryName+".items.8.amount",1);
+        get(inventoryName).set(inventoryName+".items.8.slot",32);
+        get(inventoryName).set(inventoryName+".items.8.glow",true);
+        get(inventoryName).set(inventoryName+".items.8.cmd",listCmdWrite);
+
+        get(inventoryName).set(inventoryName+".items.9.type","item");
+        get(inventoryName).set(inventoryName+".items.9.nameItem","&a&lEXAMPLE &aof &6%say% &a!");
+        get(inventoryName).set(inventoryName+".items.9.lore",list);
+        get(inventoryName).set(inventoryName+".items.9.material","goat_horn");
+        get(inventoryName).set(inventoryName+".items.9.amount",1);
+        get(inventoryName).set(inventoryName+".items.9.slot",33);
+        get(inventoryName).set(inventoryName+".items.9.glow",true);
+        get(inventoryName).set(inventoryName+".items.9.cmd",listCmdSay);
 
         save(inventoryName);
     }

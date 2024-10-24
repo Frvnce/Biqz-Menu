@@ -6,10 +6,10 @@
 
     <groupId>me.francesco</groupId>
     <artifactId>Biqz-Menu</artifactId>
-    <version>1.0.122</version>
+    <version>1.0.124</version>
     <packaging>jar</packaging>
 
-    <name>Menu</name>
+    <name>Biqz-Menu</name>
 
     <properties>
         <java.version>23</java.version>

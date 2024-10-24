@@ -1,3 +1,6 @@
+## Download
+You can download Biqz-Menu from the following link: [Download Biqz-Menu](https://www.spigotmc.org/resources/%E2%9C%A6-biqz-menu-%E2%9C%A6-easy-customizable-menu.120372/)
+
 # Biqz-Menu
 Version: 1.0.124  
 Discord: [Support Discord](https://discord.gg/HcVYx7b6yE)

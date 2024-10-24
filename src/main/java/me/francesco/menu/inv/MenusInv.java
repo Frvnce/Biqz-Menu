@@ -22,6 +22,7 @@ import java.util.UUID;
 
 public class MenusInv {
     public static boolean inventoryExist(String inventoryName){
+        //Check if the inventory exist. If it does, then the function will return true.
         File file = new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Biqz-Menu")).getDataFolder()+"/menu-list");
         if(!file.exists()){
             return false;

@@ -1,3 +1,15 @@
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the license.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ */
+
 package me.francesco.menu;
 
 import me.francesco.menu.commands.MenuCommands;
@@ -17,8 +29,6 @@ public final class Menu extends JavaPlugin {
     public static HashMap<Player,String> playerList = new HashMap<>();
     @Override
     public void onEnable() {
-
-        //todo RICONTROLLARE LE ULTIME COSE E IL PLUGIN E' FINITO!
 
         try {
             getConfig().options().copyDefaults(true);
@@ -60,9 +70,22 @@ public final class Menu extends JavaPlugin {
         }
     }
 
+    private void checkForPlugins(){
+        if(!getServer().getPluginManager().getPlugin("PlaceHolderAPI").isEnabled()){
+            getLogger().warning("PlaceHolderAPI is not enabled!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        if(!getServer().getPluginManager().getPlugin("PlaceHolderAPI").isEnabled()){
+            getLogger().warning("PlaceHolderAPI is not enabled!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+    }
+
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        getLogger().warning("Disabling Biqz-Menu...");
     }
 
 

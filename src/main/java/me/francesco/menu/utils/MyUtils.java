@@ -27,12 +27,4 @@ public class MyUtils {
         }
         return listComp;
     }
-
-    public static List<String> getListString(List<Component> lista){
-        List<String> listComp = new ArrayList<>();
-        for (Component i:lista) {
-            listComp.add(getString(i));
-        }
-        return listComp;
-    }
 }

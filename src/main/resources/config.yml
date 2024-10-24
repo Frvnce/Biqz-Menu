@@ -20,7 +20,7 @@ error:
   # Error message, cause: menu doesn't exist
   Wrong-menu: "&6✦ &cThis menu doesn't exist!"
 
-
+# Some messages
 messages:
   reload: "&6✦ &aFile &6%menu% &areload successfully!"
   success: "&6✦ &aMenu &6%menu% &acreated successfully!"

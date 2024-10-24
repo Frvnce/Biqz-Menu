@@ -2,6 +2,8 @@ name: Biqz-Menu
 version: '${project.version}'
 main: me.francesco.menu.Menu
 api-version: '1.21'
+depend:
+  - PlaceHolderAPI
 commands:
   menu:
     description: "Open the menu"

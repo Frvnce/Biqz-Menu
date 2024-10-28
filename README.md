@@ -53,3 +53,4 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 You are free to use, modify, and distribute this plugin, but any derivative work must also be licensed under the GPL. For more details, please refer to the [LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html) file.
 
 ### [Check my website!](https://francesconappo.it)
+### [Join my discord](https://discord.gg/HcVYx7b6yE)

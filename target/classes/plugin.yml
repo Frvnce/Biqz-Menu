@@ -1,5 +1,5 @@
 name: Biqz-Menu
-version: '1.0.124'
+version: '1.0.125'
 main: me.francesco.menu.Menu
 api-version: '1.21'
 depend:
